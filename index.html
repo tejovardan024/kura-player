@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuro Player</title>
+
+<style>
+body {
+  margin: 0;
+  background: #0f172a;
+  font-family: Arial;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 90%;
+  max-width: 900px;
+  margin-top: 20px;
+}
+
+iframe {
+  width: 100%;
+  height: 500px;
+  border-radius: 12px;
+  border: none;
+  background: black;
+}
+
+.controls {
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+button {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #22c55e;
+  color: white;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- Input -->
+  <div class="controls">
+    <input id="videoLink" placeholder="Paste Telegram link (https://t.me/...)" />
+    <button onclick="loadVideo()">Play</button>
+  </div>
+
+  <!-- Player -->
+  <iframe id="playerFrame" allowfullscreen></iframe>
+
+</div>
+
+<script>
+function loadVideo() {
+  const link = document.getElementById("videoLink").value.trim();
+
+  if (!link) {
+    alert("Paste Telegram link");
+    return;
+  }
+
+  document.getElementById("playerFrame").src = link + "?embed=1";
+}
+
+// Auto load via URL ?url=
+const params = new URLSearchParams(window.location.search);
+const auto = params.get("url");
+
+if (auto) {
+  document.getElementById("videoLink").value = auto;
+  loadVideo();
+}
+</script>
+
+</body>
+</html>
